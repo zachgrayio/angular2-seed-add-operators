@@ -5,6 +5,13 @@ import {Home} from './components/home/home';
 import {About} from './components/about/about';
 import {RepoBrowser} from './components/repo-browser/repo-browser';
 
+
+import {Observable} from "rxjs/Observable";
+
+import 'rxjs/add/operator/distinct'
+// relative paths to node_modules don't work any better:
+//import '../../node_modules/rxjs/add/operator/distinct'
+
 @Component({
   selector: 'seed-app',
   providers: [],
@@ -19,6 +26,14 @@ import {RepoBrowser} from './components/repo-browser/repo-browser';
 ])
 export class SeedApp {
 
-  constructor() {}
+  constructor() {
+    Observable.of(1,2,3,4,4,5,5,6)
+
+      .distinct()
+      //ERROR in [default] <path>/angular2-seed-add-operators/src/app/seed-app.ts:31:7
+      //Property 'distinct' does not exist on type 'Observable<number>'.
+
+      .subscribe(n => console.log(n));
+  }
 
 }
